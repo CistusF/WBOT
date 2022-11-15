@@ -2,7 +2,7 @@ import { Client, ClientOptions, Collection } from "discord.js";
 import mongoose from 'mongoose';
 import { readdirSync } from 'fs';
 import { env } from "../Interfaces/env.interface";
-import { Command, Context, UserContext, event } from '../Interfaces/client.interface';
+import { Command, Context, event, UserContext } from '../Interfaces/client.interface';
 const env = process.env as unknown as env;
 
 async () => {
@@ -13,7 +13,7 @@ export default class client extends Client {
     public token: string;
     public ownerId: string;
     public commands: Collection<String, Command>;
-    public userContexts: Collection<String ,UserContext>;
+    public userContexts: Collection<String, UserContext>;
     public contexts: Collection<String, Context>;
     constructor(options: ClientOptions) {
         super(options);

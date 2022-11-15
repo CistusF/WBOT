@@ -8,7 +8,7 @@ const commandFiles = fs.readdirSync('./Commands').filter((f: string) => f.endsWi
 const userContextFiles = fs.readdirSync('./ContextMenus/Users').filter((f: string) => f.endsWith('.js') || f.endsWith('.ts'));
 const contextFiles = fs.readdirSync('./ContextMenus/Messages').filter((f: string) => f.endsWith('.js') || f.endsWith('.ts'));
 
-const interactions = [{ dir: "./Commands/", files: commandFiles }, { dir: "./ContextMenus/Users/", files: userContextFiles }, { dir: "./ContextMenus/Contexts/", files: contextFiles }];
+const interactions = [{ dir: "./Commands/", files: commandFiles }, { dir: "./ContextMenus/Users/", files: userContextFiles }, { dir: "./ContextMenus/Messages/", files: contextFiles }];
 
 for (const interactionFiles of interactions) {
 	for (const file of interactionFiles.files) {

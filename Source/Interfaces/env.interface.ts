@@ -4,4 +4,5 @@ export type env = {
     debug: boolean;
     clientId: string;
     mongodbUrl: string;
+    intents: number;
 }

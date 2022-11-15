@@ -1,4 +1,4 @@
-import { Awaitable, ApplicationCommandOption, CommandInteraction, Message, ContextMenuInteraction, UserContextMenuInteraction, CacheType } from 'discord.js';
+import { Awaitable, ApplicationCommandOption, CommandInteraction, Message, APIContextMenuInteraction, UserContextMenuCommandInteraction, CacheType, ContextMenuCommandBuilder, MessageContextMenuCommandInteraction, ContextMenuCommandInteraction } from 'discord.js';
 import client from '../Utils/client';
 
 export type Command = {
@@ -15,13 +15,13 @@ export type Command = {
 export type UserContext = {
     name?: string;
     type?: ApplicationCommandType;
-    run : (client: client, interaction: UserContextMenuInteraction<CacheType>) => void;
+    run: (client: client, interaction: ContextMenuCommandInteraction) => void;
 }
 
 export type Context = {
     name?: string;
     type?: ApplicationCommandType;
-    run : (client: client, interaction: ContextMenuInteraction<CacheType>) => void;
+    run: (client: client, interaction: MessageContextMenuCommandInteraction) => void;
 }
 
 export type event = {

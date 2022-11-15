@@ -1,4 +1,4 @@
-import { EmbedBuilder, GuildMember } from "discord.js";
+import { EmbedBuilder, GuildMember, TextBasedChannel } from "discord.js";
 import { UserContext } from "../../Interfaces/client.interface"
 import { getMember } from "../../Utils/utils";
 import moment from "moment-timezone";
@@ -35,7 +35,7 @@ const command: UserContext = {
                 }
             ]);
 
-        interaction.reply({ embeds: [embed] });
+        interaction.reply({ embeds: [embed], ephemeral: true });
     }
 };
 

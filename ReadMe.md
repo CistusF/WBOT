@@ -1,3 +1,6 @@
 # WBOT
 
-### Manage your server powerful
+### Manage your server powerful  
+---------------------------
+### Languages Supported  
+- korean

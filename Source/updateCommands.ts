@@ -15,12 +15,18 @@ for (const interactionFiles of interactions) {
 		const command = require(interactionFiles.dir + file).default;
 		if (interactionFiles.files == userContextFiles) {
 			command.type = 2;
+
 		} else if (interactionFiles.files == contextFiles) {
 			command.type = 3;
 		};
-		
+		if (command.manage) {
+			command.default_member_permissions = 8
+		}
+		console.log(command);
+
 		command.name = file.replace(".js", "").replace(".ts", "");
 		delete command.run;
+		delete command.manage;
 		commands.push(command);
 	};
 };

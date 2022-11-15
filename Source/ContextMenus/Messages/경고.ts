@@ -4,6 +4,7 @@ import { Context } from "../../Interfaces/client.interface"
 import { getMember, getMessageInfo } from "../../Utils/utils";
 
 const command: Context = {
+    manage: true,
     run: async (client, interaction) => {
 
         const m = await getMessageInfo(interaction.channel!, interaction.targetId);
@@ -18,7 +19,7 @@ const command: Context = {
         });
 
         const modal = new ModalBuilder()
-            .setTitle((member.nickname ?? member.user.username) + "에게 경고")
+            .setTitle((member?.nickname ?? m.author.username) + "에게 경고")
             .setCustomId("warn " + m.author.id)
             .addComponents(new ActionRowBuilder<TextInputBuilder>().addComponents(text))
         interaction.showModal(modal);

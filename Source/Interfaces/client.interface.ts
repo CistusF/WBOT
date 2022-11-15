@@ -14,12 +14,14 @@ export type Command = {
 
 export type UserContext = {
     name?: string;
+    manage?: boolean;
     type?: ApplicationCommandType;
     run: (client: client, interaction: ContextMenuCommandInteraction) => void;
 }
 
 export type Context = {
     name?: string;
+    manage?: boolean;
     type?: ApplicationCommandType;
     run: (client: client, interaction: MessageContextMenuCommandInteraction) => void;
 }

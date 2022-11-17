@@ -10,6 +10,8 @@ const command: Context = {
         const m = await getMessageInfo(interaction.channel!, interaction.targetId);
         const member = getMember(interaction.guild!, m.author.id);
 
+        if (m.author.bot || m.author.system) return interaction.reply({ content: "경고는 유저에게만 줄 수 있습니다.", ephemeral: true });
+
         const text = new TextInputBuilder({
             label: "경고 사유",
             customId: "reason",

@@ -1,4 +1,4 @@
-import { Awaitable, ApplicationCommandOption, CommandInteraction, Message, APIContextMenuInteraction, UserContextMenuCommandInteraction, CacheType, ContextMenuCommandBuilder, MessageContextMenuCommandInteraction, ContextMenuCommandInteraction } from 'discord.js';
+import { Awaitable, ApplicationCommandOption, CommandInteraction, MessageContextMenuCommandInteraction, ContextMenuCommandInteraction, ModalSubmitInteraction } from 'discord.js';
 import client from '../Utils/client';
 
 export type Command = {
@@ -9,7 +9,7 @@ export type Command = {
     default_permission?: boolean | undefined;
     type?: number;
     guildId?: string;
-    run?: (client: client, interaction: CommandInteraction) => void;
+    run: (client: client, interaction: CommandInteraction) => void;
 }
 
 export type UserContext = {
@@ -26,10 +26,16 @@ export type Context = {
     run: (client: client, interaction: MessageContextMenuCommandInteraction) => void;
 }
 
-export type event = {
+export type Event = {
     once: boolean;
     execute: (client: client, ...args: any) => Awaitable<void>;
 };
+
+export type Modal = {
+    name?: string;
+    type?: ApplicationCommandType;
+    run: (client: client, interaction: ModalSubmitInteraction) => void;
+}
 
 enum ApplicationCommandType {
     User = 2,

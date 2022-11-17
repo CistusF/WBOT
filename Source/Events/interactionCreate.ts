@@ -1,31 +1,46 @@
-import { event } from "../Interfaces/client.interface";
-import chalk from "chalk";
-import { CacheType, CommandInteraction, Collection, MessageContextMenuCommandInteraction, Interaction, SelectMenuInteraction, ContextMenuCommandInteraction } from "discord.js";
+import { Command, Context, Event, Modal, UserContext } from "../Interfaces/client.interface";
+import { CacheType, CommandInteraction, Collection, MessageContextMenuCommandInteraction, Interaction, ContextMenuCommandInteraction, ModalSubmitInteraction } from "discord.js";
 
-const Event: event = {
+const Event: Event = {
     once: false,
     execute: (client, interaction: Interaction) => {
-        var interactionInfo;
+        type interactionInfoType = MessageContextMenuCommandInteraction | ContextMenuCommandInteraction | CommandInteraction | ModalSubmitInteraction;
+        type commandType = Collection<String, Context | UserContext | Command | Modal>;
+
+        var interactionInfo: interactionInfoType | null = null;
+        var type: commandType | null = null;
+        var name: string;
         var command;
 
-        var runCommand = (commands: Collection<String, { [key: string]: any }>, name: string, Interaction: CommandInteraction | MessageContextMenuCommandInteraction | SelectMenuInteraction) => {
+        var runCommand = (commands: Collection<String, { [key: string]: any }>, name: string, Interaction: interactionInfoType) => {
+            console.log(name)
+            if (!commands && !Interaction) return;
             command = commands.get(name);
-            if (!command) return Interaction.reply({ content: "This command is not available", ephemeral: true });
+            if (!command) return Interaction!.reply({ content: "This command is not available", ephemeral: true });
             command.run(client, interaction);
         };
 
         switch (true) {
+            case interaction.isModalSubmit():
+                interactionInfo = interaction as ModalSubmitInteraction;
+                type = client.modals;
+                name = interactionInfo.customId;
+                name = name.split(" ")[0];
+                break;
             case interaction.isMessageContextMenuCommand():
                 interactionInfo = interaction as MessageContextMenuCommandInteraction;
-                runCommand(client.contexts, interactionInfo.commandName, interactionInfo);
+                type = client.contexts;
+                name = interactionInfo.commandName;
                 break;
             case interaction.isContextMenuCommand():
                 interactionInfo = interaction as ContextMenuCommandInteraction;
-                runCommand(client.userContexts, interactionInfo.commandName, interactionInfo);
+                type = client.userContexts;
+                name = interactionInfo.commandName;
                 break;
             case interaction.isCommand():
                 interactionInfo = interaction as CommandInteraction<CacheType>
-                runCommand(client.commands, interactionInfo.commandName, interactionInfo);
+                type = client.commands;
+                name = interactionInfo.commandName;
                 break;
             // case interaction.isButton():
             //     interactionInfo = interaction as ButtonInteraction<CacheType>
@@ -36,6 +51,8 @@ const Event: event = {
             //     runCommand(client.contexts, interactionInfo.commandName, interactionInfo);
             //     break;
         }
+        if (!interactionInfo && !type) return;
+        runCommand(type!, name!, interactionInfo!);
     }
 };
 

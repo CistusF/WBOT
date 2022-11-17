@@ -1,7 +1,7 @@
-import {event} from "../Interfaces/client.interface";
+import {Event} from "../Interfaces/client.interface";
 import chalk from "chalk";
 
-const Event:event = {
+const Event:Event = {
     once: true,
     execute: (client, log) => {
         console.log(chalk.green(log));

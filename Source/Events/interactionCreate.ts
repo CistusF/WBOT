@@ -13,7 +13,6 @@ const Event: Event = {
         var command;
 
         var runCommand = (commands: Collection<String, { [key: string]: any }>, name: string, Interaction: interactionInfoType) => {
-            console.log(name)
             if (!commands && !Interaction) return;
             command = commands.get(name);
             if (!command) return Interaction!.reply({ content: "This command is not available", ephemeral: true });

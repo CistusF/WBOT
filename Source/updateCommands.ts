@@ -22,11 +22,10 @@ for (const interactionFiles of interactions) {
 		if (command.manage) {
 			command.default_member_permissions = 8
 		}
-		
+
 		command.name = file.replace(".js", "").replace(".ts", "");
 		delete command.run;
 		delete command.manage;
-		console.log(command);
 		commands.push(command);
 	};
 };

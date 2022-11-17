@@ -4,7 +4,7 @@
   "description": "powerful discord server manager",
   "main": "index.js",
   "scripts": {
-    "update": "cd ./Compiled && node updateCommands.js",
+    "update": "rm -r ./Compiled && tsc && cd ./Compiled && node updateCommands.js",
     "start": "cd ./Compiled && node index.js",
     "compile": "tsc",
     "cStart": "npm run compile && npm start"
